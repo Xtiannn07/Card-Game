@@ -1,0 +1,151 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    height: 100vh;
+    background-color: black; 
+    overflow: hidden; /* Prevents scrollbars from appearing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Allows dots to move relative to the body */
+}
+
+/* Card Container */
+.cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    z-index: 1;
+}
+
+/* Fixed 4x4 Grid */
+.deck {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns, each taking equal space */
+    grid-gap: 10px;
+    width: 200vmin; /* Ensure the grid is responsive by using viewport min units */
+    height: 200vmin; /* Maintain aspect ratio */
+    max-width: 500px; /* Limit max width to prevent excessive growth */
+    max-height: 800px; /* Limit max height to prevent excessive growth */
+    margin: auto; /* Center the grid container horizontally */
+    padding: 10px;
+}
+
+/* Individual Card Styling */
+.hero {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+}
+
+.hero img {
+    display: block; /* Ensures images are block elements */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden; /* Hides the back face when flipped */
+    border-radius: 10px;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+/* Card States */
+.hero .back {
+    transform: rotateY(0deg); /* Initial state of the back image */
+    opacity: 1;
+}
+
+.hero .front {
+    overflow: hidden;
+    transform: rotateY(180deg); /* Initial state of the front image, hidden */
+    opacity: 0; /* Initially hide the front image */
+}
+
+.hero.flipped .back {
+    opacity: 0; /* Hide the back image when flipped */
+}
+
+.hero.flipped .front {
+    opacity: 1; /* Show the front image when flipped */
+    transform: rotateY(0deg); /* Make sure the front is visible */
+}
+
+.hero.matched {
+    transform: rotateY(0deg); /* Reset the card position when matched */
+    transition: none; /* Remove transition effect when matched */
+}
+
+.hero.matched .front {
+    opacity: 1; /* Keep the front image visible when matched */
+}
+
+.hero.matched .back {
+    opacity: 0; /* Keep the back image hidden when matched */
+}
+
+/* Style for the dots */
+.dot {
+    width: 2px;
+    height: 2px;
+    background-color: #00ff00; /* Green color for the dots */
+    border-radius: 90%;
+    position: absolute;
+    opacity: 0;
+    animation: moveDot 50s infinite; /* Animation applied to dots */
+    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00; /* Green glow effect */
+    z-index: 0;
+}
+
+/* Keyframes for dot movement */
+@keyframes moveDot {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    25% {
+        opacity: 0;
+        transform: translate(100vw, 0);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(100vw, 100vh);
+    }
+    75% {
+        opacity: 0;
+        transform: translate(0, 100vh);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translate(calc(100vw * var(--xDirection)), calc(100vh * var(--yDirection)));
+    }
+}
+
+/* Responsive Styling for Medium Screens (Tablets) */
+@media (max-width: 768px) {
+    .deck {
+        width: 70vmin; /* Adjust width to fit the viewport */
+        height: 110vmin; /* Maintain aspect ratio */
+    }
+}
+
+/* Responsive Styling for Small Screens (Phones) */
+@media (max-width: 480px) {
+    .deck {
+        width: 60vmin; /* Adjust width to fit the viewport */
+        height: 100vmin; /* Maintain aspect ratio */
+    }
+
+    .hero {
+        border-radius: 6px; /* Smaller radius for smaller screens */
+    }
+}
