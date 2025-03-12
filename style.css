@@ -8,12 +8,46 @@
 /* Body Styling */
 body {
     height: 100vh;
-    background-color: black; 
-    overflow: hidden; /* Prevents scrollbars from appearing */
+    background-color: black;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Allows dots to move relative to the body */
+    position: relative;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Game Controls at the Bottom */
+.game-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 2;
+}
+
+#restart {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #00ff00;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    transition: background-color 0.3s;
+}
+
+#restart:hover {
+    background-color: #00cc00;
+}
+
+#score {
+    color: #00ff00;
+    font-size: 20px;
 }
 
 /* Card Container */
@@ -28,13 +62,13 @@ body {
 /* Fixed 4x4 Grid */
 .deck {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns, each taking equal space */
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
-    width: 200vmin; /* Ensure the grid is responsive by using viewport min units */
-    height: 200vmin; /* Maintain aspect ratio */
-    max-width: 500px; /* Limit max width to prevent excessive growth */
-    max-height: 800px; /* Limit max height to prevent excessive growth */
-    margin: auto; /* Center the grid container horizontally */
+    width: 200vmin;
+    height: 200vmin;
+    max-width: 500px;
+    max-height: 800px;
+    margin: auto;
     padding: 10px;
 }
 
@@ -45,64 +79,69 @@ body {
     perspective: 1000px;
     cursor: pointer;
     position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
 }
 
 .hero img {
-    display: block; /* Ensures images are block elements */
+    display: block;
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    backface-visibility: hidden; /* Hides the back face when flipped */
+    backface-visibility: hidden;
     border-radius: 10px;
     transition: transform 0.5s, opacity 0.5s;
 }
 
 /* Card States */
 .hero .back {
-    transform: rotateY(0deg); /* Initial state of the back image */
+    transform: rotateY(0deg);
     opacity: 1;
 }
 
 .hero .front {
-    overflow: hidden;
-    transform: rotateY(180deg); /* Initial state of the front image, hidden */
-    opacity: 0; /* Initially hide the front image */
+    transform: rotateY(180deg);
+    opacity: 0;
+}
+
+.hero.flipped {
+    transform: rotateY(180deg);
 }
 
 .hero.flipped .back {
-    opacity: 0; /* Hide the back image when flipped */
+    opacity: 0;
 }
 
 .hero.flipped .front {
-    opacity: 1; /* Show the front image when flipped */
-    transform: rotateY(0deg); /* Make sure the front is visible */
+    opacity: 1;
+    transform: rotateY(180deg);
 }
 
 .hero.matched {
-    transform: rotateY(0deg); /* Reset the card position when matched */
-    transition: none; /* Remove transition effect when matched */
+    transform: rotateY(0deg);
+    transition: none;
 }
 
 .hero.matched .front {
-    opacity: 1; /* Keep the front image visible when matched */
+    opacity: 1;
 }
 
 .hero.matched .back {
-    opacity: 0; /* Keep the back image hidden when matched */
+    opacity: 0;
 }
 
 /* Style for the dots */
 .dot {
     width: 2px;
     height: 2px;
-    background-color: #00ff00; /* Green color for the dots */
+    background-color: #00ff00;
     border-radius: 90%;
     position: absolute;
     opacity: 0;
-    animation: moveDot 50s infinite; /* Animation applied to dots */
-    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00; /* Green glow effect */
+    animation: moveDot 50s infinite;
+    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00;
     z-index: 0;
 }
 
@@ -131,21 +170,21 @@ body {
 }
 
 /* Responsive Styling for Medium Screens (Tablets) */
-@media (max-width: 768px) {
+@media (max-width: 820px) {
     .deck {
-        width: 70vmin; /* Adjust width to fit the viewport */
-        height: 110vmin; /* Maintain aspect ratio */
+        width: 110vmin;
+        height: 160vmin;
     }
 }
 
 /* Responsive Styling for Small Screens (Phones) */
 @media (max-width: 480px) {
     .deck {
-        width: 60vmin; /* Adjust width to fit the viewport */
-        height: 100vmin; /* Maintain aspect ratio */
+        width: 90vmin;
+        height: 130vmin;
     }
 
     .hero {
-        border-radius: 6px; /* Smaller radius for smaller screens */
+        border-radius: 6px;
     }
 }
