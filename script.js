@@ -83,18 +83,22 @@ document.addEventListener('DOMContentLoaded', () => {
         shuffleCards();
     }
 
-    // Initialize the game
-    shuffleCards();
-    deck.addEventListener('click', (event) => {
-        if (event.target.classList.contains('hero')) {
-            flipCard.call(event.target);
-        }
-    });
+    // Initialize the game automatically
+    function initializeGame() {
+        shuffleCards();
+        cards.forEach(card => card.addEventListener('click', flipCard));
+        matchedPairs = 0;
+        scoreDisplay.textContent = `Matched Pairs: ${matchedPairs / 2}`;
+    }
 
+    // Start the game when the page loads
+    initializeGame();
+
+    // Restart button functionality
     restartButton.addEventListener('click', restartGame);
 });
 
-// Background dots animation
+// Background dots animation (unchanged)
 document.addEventListener('DOMContentLoaded', () => {
     const numberOfDots = 200;
     const body = document.body;
