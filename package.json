@@ -1,0 +1,15 @@
+{
+  "name": "card-game-react",
+  "version": "1.0.0",
+  "description": "React version of matching card game",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "echo \"Open public/index.html in a browser\"",
+    "build": "echo 'No build step'",
+    "test": "echo 'No tests specified'"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
